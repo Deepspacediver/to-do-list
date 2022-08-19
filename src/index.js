@@ -1,2 +1,6 @@
 import "./main.css"
-console.log('yo')
+import {createHTMLTemplate, createContentTemplate} from "./htmlTemplate"
+
+
+createHTMLTemplate()
+createContentTemplate()
