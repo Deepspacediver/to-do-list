@@ -18,3 +18,15 @@ body{
     display: grid;
     grid-template-columns: 1fr 8fr;
 }
+
+.heading, .footer{
+    background-color: #d6cbd3
+}
+
+.body-content{
+    background-color:  #96897f
+}
+
+.nav-bar-content{
+    background-color: #625750
+}
