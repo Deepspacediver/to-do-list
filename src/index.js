@@ -1,6 +1,4 @@
 import "./main.css"
-import {createHTMLTemplate, createContentTemplate} from "./htmlTemplate"
+import { createHTMLTemplate } from "./htmlTemplate"
 
-
-createHTMLTemplate()
-createContentTemplate()
+// createInputForTodo()
