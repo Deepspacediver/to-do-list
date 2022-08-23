@@ -110,6 +110,16 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 
 /***/ }),
 
+/***/ "./src/formHandler.js":
+/*!****************************!*\
+  !*** ./src/formHandler.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _todoLogic__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./todoLogic */ \"./src/todoLogic.js\");\n\n\nconst titleInput = document.querySelector('#todo-title')\nconst descriptionInput = document.querySelector('#todo-description')\nconst dateInput = document.querySelector('input#todo-date')\nconst submitButton = document.querySelector('.submit-button')\n\nfunction addNewTodo(newTodo){\n    _todoLogic__WEBPACK_IMPORTED_MODULE_0__.todoArray.push(newTodo)\n}\nsubmitButton.addEventListener('click', ()=>{\n    if(!titleInput.value || !descriptionInput.value || !dateInput.value) return;\n    addNewTodo((0,_todoLogic__WEBPACK_IMPORTED_MODULE_0__.createTodo)(titleInput.value, descriptionInput.value, dateInput.value ))\n    \n    console.log(_todoLogic__WEBPACK_IMPORTED_MODULE_0__.todoArray)\n})\n\n//# sourceURL=webpack://to-do-list/./src/formHandler.js?");
+
+/***/ }),
+
 /***/ "./src/htmlTemplate.js":
 /*!*****************************!*\
   !*** ./src/htmlTemplate.js ***!
@@ -126,7 +136,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _main_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./main.css */ \"./src/main.css\");\n/* harmony import */ var _htmlTemplate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./htmlTemplate */ \"./src/htmlTemplate.js\");\n\n\n\n// createInputForTodo()\n\n//# sourceURL=webpack://to-do-list/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _main_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./main.css */ \"./src/main.css\");\n/* harmony import */ var _htmlTemplate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./htmlTemplate */ \"./src/htmlTemplate.js\");\n/* harmony import */ var _todoLogic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./todoLogic */ \"./src/todoLogic.js\");\n/* harmony import */ var _formHandler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./formHandler */ \"./src/formHandler.js\");\n\n\n\n\n\n\n// createInputForTodo()\n\n//# sourceURL=webpack://to-do-list/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/todoLogic.js":
+/*!**************************!*\
+  !*** ./src/todoLogic.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"createTodo\": () => (/* binding */ createTodo),\n/* harmony export */   \"todoArray\": () => (/* binding */ todoArray)\n/* harmony export */ });\nlet todoArray = []\nclass todo{\n    constructor(title, description, date){\n        this.orignID = Date.now()\n        this.title = title\n        this.description = description;\n        this.date = date;\n    }\n}\n    \nfunction createTodo(titleInput, descriptionInput, dateInput){\n     const newTodo = new todo(titleInput, descriptionInput, dateInput)\n     return newTodo;\n\n}\n\n//# sourceURL=webpack://to-do-list/./src/todoLogic.js?");
 
 /***/ })
 
