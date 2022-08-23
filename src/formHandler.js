@@ -12,5 +12,6 @@ submitButton.addEventListener('click', ()=>{
     if(!titleInput.value || !descriptionInput.value || !dateInput.value) return;
     addNewTodo(createTodo(titleInput.value, descriptionInput.value, dateInput.value ))
     
+    console.log(createTodo().originID)
     console.log(todoArray)
 })
