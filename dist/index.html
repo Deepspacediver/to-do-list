@@ -5,5 +5,31 @@
     <title>To-do List</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"><script defer src="main.js"></script></head>
   <body>
+    <div class="todo-form-container" id="form">
+      <div class="form-header">
+        <div class="title">Todo form</div>
+        <button data-close-button class="close-button">&times;</button>
+      </div>
+      <div class="form-body">
+        <form action="" method="get">
+          <fieldset>
+            <div>
+              <label for="todo-title">Todo</label>
+              <input type="text" id="todo-title">
+            </div>
+            <div>
+              <label for="todo-description">Description</label>
+              <input type="text" id="todo-description">
+            </div>
+            <div>
+              <label for="todo-date">Date</label>
+              <input type="text" id="todo-date">
+            </div>
+          </fieldset>
+        </form>
+          <button class="submit-form">Submit</button>
+      </div>
+    </div>
+    <div id="overlay"></div>
   </body>
 </html>
