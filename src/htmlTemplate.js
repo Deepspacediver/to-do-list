@@ -56,5 +56,7 @@ export const createHTMLTemplate = (() => {
         })()
     })();
 
-    
+    return{
+        body,
+    }
 })();

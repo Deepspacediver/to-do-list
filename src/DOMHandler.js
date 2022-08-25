@@ -1,1 +1,29 @@
 import { todoArray } from "./todoLogic";
+import { createHTMLTemplate } from "./htmlTemplate";
+
+const bodyContent = document.querySelector('.body-content')
+
+export function createTodoDiv(todoObject){
+    const todoWrapper = document.createElement('div')
+    todoWrapper.dataset.id = `${todoObject.originID}`
+    todoWrapper.classList.add('todo-wrapper')
+    bodyContent.appendChild(todoWrapper)
+
+    const todoTitle = document.createElement('div')
+    todoTitle.dataset.id = `${todoObject.originID}`;
+    todoTitle.classList.add('todo-title')
+    todoTitle.textContent = `${todoObject.title}`
+    todoWrapper.appendChild(todoTitle)
+
+    const todoDescription = document.createElement('div')
+    todoDescription.dataset.id = `${todoObject.originID}`;
+    todoDescription.classList.add('todo-descritpion')
+    todoDescription.textContent = `${todoObject.description}`
+    todoWrapper.appendChild(todoDescription)
+
+    const todoDate = document.createElement('div')
+    todoDate.dataset.id = `${todoObject.originID}`;
+    todoDate.classList.add('todo-date')
+    todoDate.textContent = `${todoObject.date}`
+    todoWrapper.appendChild(todoDate)
+}

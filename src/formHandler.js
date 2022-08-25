@@ -1,17 +1,21 @@
-import {createTodo, todoArray } from "./todoLogic"
+import {todoArray, todo } from "./todoLogic"
+import { createTodoDiv } from "./DOMHandler"
 
 const titleInput = document.querySelector('#todo-title')
 const descriptionInput = document.querySelector('#todo-description')
 const dateInput = document.querySelector('input#todo-date')
 const submitButton = document.querySelector('.submit-button')
 
-function addNewTodo(newTodo){
-    todoArray.push(newTodo)
+function addNewTodo(array,newTodo){
+    array.push(newTodo)
 }
 submitButton.addEventListener('click', ()=>{
-    if(!titleInput.value || !descriptionInput.value || !dateInput.value) return;
-    addNewTodo(createTodo(titleInput.value, descriptionInput.value, dateInput.value ))
+    if(!titleInput.value || !descriptionInput.value ||
+         !dateInput.value) return;
+         const newTodo = new todo(titleInput.value, descriptionInput.value, dateInput.value)  
+         addNewTodo(todoArray, newTodo)
+         createTodoDiv(newTodo)  
     
-    console.log(createTodo().originID)
-    console.log(todoArray)
 })
+
+export {titleInput, descriptionInput, dateInput, submitButton}
