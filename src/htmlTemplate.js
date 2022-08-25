@@ -1,3 +1,5 @@
+// import { submitButton } from "./formHandler";
+
 export const createHTMLTemplate = (() => {
     const body = document.querySelector('body')
 
@@ -28,6 +30,12 @@ export const createHTMLTemplate = (() => {
             const bodyContent = document.createElement('div')
             bodyContent.classList.add('body-content')
             content.appendChild(bodyContent)
+
+            const addTodoButton = document.createElement('button')
+            addTodoButton.classList.add('add-todo-button')
+            addTodoButton.dataset.formTarget= '.todo-form-container'
+            addTodoButton.textContent = 'new todo'
+            bodyContent.appendChild(addTodoButton)
         })();
     })();
 
@@ -55,8 +63,5 @@ export const createHTMLTemplate = (() => {
             document.querySelector('.footer').appendChild(footerTitle)
         })()
     })();
-
-    return{
-        body,
-    }
 })();
+

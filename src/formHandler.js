@@ -17,5 +17,4 @@ submitButton.addEventListener('click', ()=>{
          createTodoDiv(newTodo)  
     
 })
-
 export {titleInput, descriptionInput, dateInput, submitButton}
