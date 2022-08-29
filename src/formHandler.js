@@ -54,9 +54,11 @@ function addNewTodo(array,newTodo){
 }
 function clearForm(button){
     const inputContainers = Array.from(button.closest('div').querySelector('fieldset').children)
-    inputContainers.forEach(div => {
-        // div.first
-    })
     console.log(inputContainers)
+    inputContainers.forEach((div) => {
+        Array.from(div.querySelectorAll('input')).forEach((input) =>{ //Collects all input within all divs
+            input.value = ''
+        })
+    })
 }
 export {titleInput, descriptionInput, dateInput, submitButton}
