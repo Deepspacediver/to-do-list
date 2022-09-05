@@ -1,4 +1,4 @@
-import { todoArray } from "./todoLogic";
+import { todoArray, todo } from "./todoLogic";
 
 const bodyContent = document.querySelector('.body-content')
 
@@ -25,4 +25,12 @@ export function createTodoDiv(todoObject){
     todoDate.classList.add('todo-date')
     todoDate.textContent = `${todoObject.date}`
     todoWrapper.appendChild(todoDate)
+
+    const removeTodoButton = document.createElement('button')
+    removeTodoButton.dataset.id = `${todoObject.originID}`
+    removeTodoButton.classList.add('todo-remove-button')
+    removeTodoButton.textContent = 'Remove me'
+    todoWrapper.appendChild(removeTodoButton)
+    removeTodoButton.addEventListener('click', todoObject.removeTodo)
 }
+

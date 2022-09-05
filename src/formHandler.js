@@ -21,7 +21,6 @@ submitButton.addEventListener('click', (e)=>{
 const openFormButtons = document.querySelectorAll('[data-form-target]')
 const closeFormButtons = document.querySelectorAll('[data-close-button]')
 const overlay = document.getElementById('overlay')
-console.log(openFormButtons)
 
 openFormButtons.forEach(button => {
     button.addEventListener('click', ()=>{
@@ -33,7 +32,6 @@ openFormButtons.forEach(button => {
 closeFormButtons.forEach(button => {
     button.addEventListener('click', ()=>{
         const form = button.closest('.todo-form-container')
-
         closeForm(form)
     })
 })
@@ -54,7 +52,6 @@ function addNewTodo(array,newTodo){
 }
 function clearForm(button){
     const inputContainers = Array.from(button.closest('div').querySelector('fieldset').children)
-    console.log(inputContainers)
     inputContainers.forEach((div) => {
         Array.from(div.querySelectorAll('input')).forEach((input) =>{ //Collects all input within all divs
             input.value = ''
