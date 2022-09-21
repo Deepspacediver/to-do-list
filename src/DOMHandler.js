@@ -3,10 +3,11 @@ import { todoArray, todo } from "./todoLogic";
 const bodyContent = document.querySelector('.body-content')
 
 export function createTodoDiv(todoObject){
+    
     const todoWrapper = document.createElement('div')
     todoWrapper.dataset.id = `${todoObject.originID}`
     todoWrapper.classList.add('todo-wrapper')
-    bodyContent.appendChild(todoWrapper)
+    bodyContent.insertBefore(todoWrapper, bodyContent.firstChild)
 
     const todoTitle = document.createElement('div')
     todoTitle.dataset.id = `${todoObject.originID}`;
@@ -32,5 +33,10 @@ export function createTodoDiv(todoObject){
     removeTodoButton.textContent = 'Remove me'
     todoWrapper.appendChild(removeTodoButton)
     removeTodoButton.addEventListener('click', todoObject.removeTodo)
+}
+
+function getFirstChild(){
+    let firstChild = document.querySelector('div.body-content').firstChild
+    return firstChild;
 }
 
