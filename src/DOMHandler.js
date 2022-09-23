@@ -1,4 +1,4 @@
-import { todoArray, todo } from "./todoLogic";
+import { todoArray, todo, projectList } from "./todoLogic";
 
 const bodyContent = document.querySelector('.body-content')
 
@@ -40,3 +40,21 @@ function getFirstChild(){
     return firstChild;
 }
 
+
+const listContainer = document.querySelector('.project-list')
+const newProjectInput = document.querySelector('.new-project-input')
+const projectForm = document.querySelector('.project-form')
+
+projectForm.addEventListener('submit', (e)=>{
+    e.preventDefault()
+    console.log(this)
+})
+function renderList(){
+    projectList.forEach(project =>{
+        const projectElement = document.createElement('li')
+        projectElement.classList.add('project-title')
+        projectElement.innerText = project.name
+        listContainer.appendChild(projectElement)
+    })
+}
+renderList();

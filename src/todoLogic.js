@@ -1,4 +1,11 @@
 export let todoArray = []
+export let projectList = [{
+    name: 'workout',
+    id:1
+},{
+    name: 'study',
+    id:2
+}];
 export class todo{
     constructor(title, description, date){
         this.originID = Date.now()

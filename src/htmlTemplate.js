@@ -40,19 +40,25 @@ export const createHTMLTemplate = (() => {
     })();
 
     const populateNavBar = (() => {
+        const projectForm = document.createElement('form')
+        projectForm.classList.add('project-form')
+        document.querySelector('.nav-bar-content').appendChild(projectForm)
         const newProjectInput = document.createElement('input')
+        newProjectInput.classList.add('new-project-input')
         newProjectInput.type = 'text'
         newProjectInput.placeholder = 'new Project'
-        document.querySelector('.nav-bar-content').appendChild(newProjectInput)
-        const navBarList = document.createElement('ul')
-        navBarList.classList.add('nav-list')
-        document.querySelector('.nav-bar-content').appendChild(navBarList)
+        projectForm.appendChild(newProjectInput)
+        
+
+        const projectList = document.createElement('ul')
+        projectList.classList.add('project-list')
+        document.querySelector('.nav-bar-content').appendChild(projectList)
     
         
         const todoItemList = document.createElement('li')
         todoItemList.classList.add('todo')
         todoItemList.textContent = "Today's Todos"
-        navBarList.appendChild(todoItemList)
+        projectList.appendChild(todoItemList)
     })();
 
     const createFooter = (() =>{
