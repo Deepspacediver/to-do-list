@@ -40,10 +40,15 @@ export const createHTMLTemplate = (() => {
     })();
 
     const populateNavBar = (() => {
+        const newProjectInput = document.createElement('input')
+        newProjectInput.type = 'text'
+        newProjectInput.placeholder = 'new Project'
+        document.querySelector('.nav-bar-content').appendChild(newProjectInput)
         const navBarList = document.createElement('ul')
         navBarList.classList.add('nav-list')
         document.querySelector('.nav-bar-content').appendChild(navBarList)
     
+        
         const todoItemList = document.createElement('li')
         todoItemList.classList.add('todo')
         todoItemList.textContent = "Today's Todos"
