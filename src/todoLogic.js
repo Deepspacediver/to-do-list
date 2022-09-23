@@ -1,12 +1,8 @@
-export let todoArray = []
-export let projectList = [{
-    name: 'workout',
-    id:1
-},{
-    name: 'study',
-    id:2
-}];
-export class todo{
+
+let todoArray = []
+let LOCAL_STORAGE_PROJECT_KEY  = 'todo.projects'
+let projectList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_PROJECT_KEY)) || [];
+class todo{
     constructor(title, description, date){
         this.originID = Date.now()
         this.title = title
@@ -29,6 +25,16 @@ export class todo{
     }
 
 }
+
+class project{
+    constructor(name){
+        this.name = name
+        this.id = Date.now()
+        this.todos = []
+    }
+}
+
+export { todo, projectList, todoArray, project, LOCAL_STORAGE_PROJECT_KEY}
 
 
     

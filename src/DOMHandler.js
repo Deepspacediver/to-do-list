@@ -1,4 +1,4 @@
-import { todoArray, todo, projectList } from "./todoLogic";
+import { todoArray, todo, projectList, project, LOCAL_STORAGE_PROJECT_KEY} from "./todoLogic";
 
 const bodyContent = document.querySelector('.body-content')
 
@@ -40,21 +40,46 @@ function getFirstChild(){
     return firstChild;
 }
 
+ 
+const listContainer = document.querySelector('[data-project-list]')
+const newProjectInput = document.querySelector('[data-new-project-input]')
+const projectForm = document.querySelector('[data-project-form]')
 
-const listContainer = document.querySelector('.project-list')
-const newProjectInput = document.querySelector('.new-project-input')
-const projectForm = document.querySelector('.project-form')
 
-projectForm.addEventListener('submit', (e)=>{
+
+projectForm.addEventListener('submit', e=>{
     e.preventDefault()
-    console.log(this)
+    if(newProjectInput.value == null || newProjectInput.value =='') return
+   let projectName = newProjectInput.value;
+    const newProject = new project(projectName)
+    projectList.push(newProject)
+    console.log(projectList)
+    saveAndRenderList()
+    console.log(localStorage)
+    newProjectInput.value =''
 })
-function renderList(){
+
+function saveAndRenderList(){
+    saveList()
+    renderList()
+}
+function saveList (){
+    localStorage.setItem(LOCAL_STORAGE_PROJECT_KEY, JSON.stringify(projectList))
+}
+export function renderList(){
+    clearElement(listContainer)
     projectList.forEach(project =>{
         const projectElement = document.createElement('li')
         projectElement.classList.add('project-title')
+        projectElement.dataset.projectId = project.id
         projectElement.innerText = project.name
         listContainer.appendChild(projectElement)
     })
 }
-renderList();
+
+function clearElement(element){
+    while(element.firstChild){
+        element.firstChild.remove()
+    }
+}
+// renderList(); 
