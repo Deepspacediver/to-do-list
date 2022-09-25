@@ -1,5 +1,7 @@
 // import { submitButton } from "./formHandler";
 
+import { project } from "./todoLogic";
+
 export const createHTMLTemplate = (() => {
     const body = document.querySelector('body')
 
@@ -80,3 +82,16 @@ export const createHTMLTemplate = (() => {
     })();
 })();
 
+function createProjectContainerDOM(selectedProjectID){
+    const projectTodoContainer = document.createElement('div')
+    projectTodoContainer.dataset.projectId = `${selectedProjectID}`
+    projectTodoContainer.classList.add('project-container')
+
+    const projectTodoUL = document.createElement('ul')
+    projectTodoUL.dataset.projectId = `${selectedProjectID}`;
+    projectTodoUL.classList.add('todo-list')
+    projectTodoContainer.appendChild(projectTodoUL)
+    document.querySelector('.body-content').appendChild(projectTodoContainer)
+}
+
+export {createProjectContainerDOM}

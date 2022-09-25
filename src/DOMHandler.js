@@ -1,5 +1,7 @@
 import { todoArray, todo, projectList, project,
-     LOCAL_STORAGE_PROJECT_KEY, LOCAL_STORAGE_SELECTED_PROJECT_KEY} from "./todoLogic";
+     LOCAL_STORAGE_PROJECT_KEY, LOCAL_STORAGE_SELECTED_PROJECT_KEY,
+    } from "./todoLogic";
+import { createProjectContainerDOM } from "./htmlTemplate";
 
 const bodyContent = document.querySelector('.body-content')
 
@@ -104,4 +106,4 @@ listContainer.addEventListener('click', e=>{
 
     }
 } */
-export {saveAndRenderList,} 
+  export {saveAndRenderList, selectedProjectId} 

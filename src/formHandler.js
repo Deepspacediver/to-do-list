@@ -1,16 +1,21 @@
-import {todoArray, todo } from "./todoLogic"
-import { createTodoDiv,} from "./DOMHandler"
+import {todoArray, todo, projectList, project } from "./todoLogic"
+import { createTodoDiv, selectedProjectId, saveAndRenderList} from "./DOMHandler"
 
 const titleInput = document.querySelector('#todo-title')
 const descriptionInput = document.querySelector('#todo-description')
 const dateInput = document.querySelector('input#todo-date')
 const submitButton = document.querySelector('.submit-button')
 
+const openFormButtons = document.querySelectorAll('[data-form-target]')
+const closeFormButtons = document.querySelectorAll('[data-close-button]')
+const overlay = document.getElementById('overlay')
 
 submitButton.addEventListener('click', (e)=>{
     if(!titleInput.value || !descriptionInput.value ||
          !dateInput.value) return;
-         const newTodo = new todo(titleInput.value, descriptionInput.value, dateInput.value)  
+         const newTodo = new todo(selectedProjectId,titleInput.value, descriptionInput.value,
+             dateInput.value) 
+             console.log(newTodo) 
          addNewTodo(todoArray, newTodo)
          createTodoDiv(newTodo)  
          clearForm(submitButton)
@@ -18,9 +23,6 @@ submitButton.addEventListener('click', (e)=>{
     
 })
 
-const openFormButtons = document.querySelectorAll('[data-form-target]')
-const closeFormButtons = document.querySelectorAll('[data-close-button]')
-const overlay = document.getElementById('overlay')
 
 openFormButtons.forEach(button => {
     button.addEventListener('click', ()=>{
@@ -49,6 +51,14 @@ function closeForm(form){
 }
 function addNewTodo(array,newTodo){
     array.push(newTodo)
+    let indexOfProjectInArray = projectList.findIndex(project => 
+        project.id == selectedProjectId
+    )
+    console.log(indexOfProjectInArray)
+    let currentProjectInStorage = projectList[indexOfProjectInArray]
+    currentProjectInStorage.todos.push(newTodo)
+    saveAndRenderList()
+    console.log(projectList)
 }
 function clearForm(button){
     const inputContainers = Array.from(button.closest('div').querySelector('fieldset').children)

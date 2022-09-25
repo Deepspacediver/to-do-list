@@ -4,8 +4,9 @@ let LOCAL_STORAGE_PROJECT_KEY  = 'todo.projects'
 let LOCAL_STORAGE_SELECTED_PROJECT_KEY  = 'todo.selectedProject'
 let projectList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_PROJECT_KEY)) || [];
 class todo{
-    constructor(title, description, date){
+    constructor(projectId, title, description, date, ){
         this.originID = Date.now()
+        this.projectId = projectId;
         this.title = title
         this.description = description;
         this.date = date;
