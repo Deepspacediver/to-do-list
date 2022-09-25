@@ -51,12 +51,12 @@ function closeForm(form){
     overlay.classList.remove('active')
 }
 
-function addNewTodo(array,newTodo){
-    array.push(newTodo)
-    
-    findSelectedProjectInStorage().todos.push(newTodo)
-    saveAndRenderList()
-    console.log(projectList)
+function addNewTodo(defaultArray, newTodo){
+        if(selectedProjectId == 0) defaultArray.push(newTodo)
+        else {
+            findSelectedProjectInStorage().todos.push(newTodo)
+            console.log(projectList)
+        }
 }
 
 

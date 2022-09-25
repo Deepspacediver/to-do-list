@@ -1,7 +1,7 @@
 
 let todoArray = []
 let LOCAL_STORAGE_PROJECT_KEY  = 'todo.projects'
-let LOCAL_STORAGE_SELECTED_PROJECT_KEY  = 'todo.selectedProject'
+let LOCAL_STORAGE_SELECTED_PROJECT_KEY  = 'todo.selectedProjectId'
 let projectList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_PROJECT_KEY)) || [];
 class todo{
     constructor(projectId,title, description, date, ){
@@ -16,16 +16,16 @@ class todo{
     }
 
     removeTodo(){
-        let id = this.dataset.id //button.data-id
+        console.log(this)
+         let id = this.dataset.todoId //button.data-id
         let indexOfTodoInArray = todoArray.findIndex(object => object.originID == id)
         todoArray.splice(indexOfTodoInArray, 1)
         
         let pageElements = Array.from(document.querySelectorAll(`[data-id="${this.dataset.id}"]`))
         pageElements.forEach((element) =>{
             element.remove()
-        }) 
+        })  
     }
-
 }
 
 class project{

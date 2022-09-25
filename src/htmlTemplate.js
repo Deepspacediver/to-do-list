@@ -52,19 +52,18 @@ export const createHTMLTemplate = (() => {
         newProjectInput.type = 'text'
         newProjectInput.placeholder = 'new Project'
         projectForm.appendChild(newProjectInput)
-
-        const todoItemList = document.createElement('div')
-        todoItemList.classList.add('default-todo')
-        todoItemList.classList.add('project-title')
-        todoItemList.textContent = "Today's Todos"
-        document.querySelector('.nav-bar-content').appendChild(todoItemList)
+    
+        const defaultProject = document.createElement('div')
+        defaultProject.classList.add('default-todo')
+        defaultProject.classList.add('project-title')
+        defaultProject.dataset.projectId = `${0}`
+        defaultProject.textContent = "Today's Todos"
+        document.querySelector('.nav-bar-content').appendChild(defaultProject)
 
         const projectList = document.createElement('ul')
         projectList.classList.add('project-list')
         projectList.dataset.projectList =''
         document.querySelector('.nav-bar-content').appendChild(projectList)
-    
-        
     })();
 
     const createFooter = (() =>{

@@ -8,34 +8,34 @@ const bodyContent = document.querySelector('.body-content')
 export function createTodoDiv(todoObject){
     
     const todoWrapper = document.createElement('div')
-    todoWrapper.dataset.id = `${todoObject.originID}`
+    todoWrapper.dataset.todoId = `${todoObject.originID}`
     todoWrapper.classList.add('todo-wrapper')
     bodyContent.insertBefore(todoWrapper, bodyContent.firstChild)
 
     const todoTitle = document.createElement('div')
-    todoTitle.dataset.id = `${todoObject.originID}`;
+    todoTitle.dataset.todoId = `${todoObject.originID}`;
     todoTitle.classList.add('todo-title')
     todoTitle.textContent = `${todoObject.title}`
     todoWrapper.appendChild(todoTitle)
 
     const todoDescription = document.createElement('div')
-    todoDescription.dataset.id = `${todoObject.originID}`;
+    todoDescription.dataset.todoId = `${todoObject.originID}`;
     todoDescription.classList.add('todo-descritpion')
     todoDescription.textContent = `${todoObject.description}`
     todoWrapper.appendChild(todoDescription)
 
     const todoDate = document.createElement('div')
-    todoDate.dataset.id = `${todoObject.originID}`;
+    todoDate.dataset.todoId = `${todoObject.originID}`;
     todoDate.classList.add('todo-date')
     todoDate.textContent = `${todoObject.date}`
     todoWrapper.appendChild(todoDate)
 
     const removeTodoButton = document.createElement('button')
-    removeTodoButton.dataset.id = `${todoObject.originID}`
+    removeTodoButton.dataset.todoId = `${todoObject.originID}`
     removeTodoButton.classList.add('todo-remove-button')
     removeTodoButton.textContent = 'Remove me'
     todoWrapper.appendChild(removeTodoButton)
-    removeTodoButton.addEventListener('click', todoObject.removeTodo)
+    // removeTodoButton.addEventListener('click', todoObject.removeTodo(todoArray))
 }
 
 function getFirstChild(){
@@ -48,7 +48,7 @@ const listContainer = document.querySelector('[data-project-list]')
 const newProjectInput = document.querySelector('[data-new-project-input]')
 const projectForm = document.querySelector('[data-project-form]')
 let selectedProjectId = localStorage.getItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY)
-
+const defaultTodoProject = document.querySelector('.default-todo')
 
 
 projectForm.addEventListener('submit', e=>{
@@ -68,16 +68,24 @@ function saveAndRenderList(){
 }
 function saveList (){
     localStorage.setItem(LOCAL_STORAGE_PROJECT_KEY, JSON.stringify(projectList))
-    localStorage.setItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY, selectedProjectId)
+    if(localStorage.getItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY) === null ||
+    localStorage.getItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY) == 0){
+        localStorage.setItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY,
+             defaultTodoProject.dataset.projectId)
+    }else {
+        localStorage.setItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY, selectedProjectId)
+    }
 }
 function renderList(){
     clearElement(listContainer)
+    if(selectedProjectId == 0) defaultTodoProject.classList.add('selected')
     projectList.forEach(project =>{
         const projectElement = document.createElement('li')
         projectElement.classList.add('project-title')
         projectElement.dataset.projectId = project.id
         projectElement.innerText = project.name
         if(project.id == selectedProjectId){
+            defaultTodoProject.classList.remove('selected')
             projectElement.classList.add('selected')
         }
         listContainer.appendChild(projectElement)
@@ -90,12 +98,22 @@ function clearElement(element){
     }
 }
 
+defaultTodoProject.addEventListener('click', e=>{
+    if(e.target.classList.contains('selected')) return
+    selectedProjectId = e.target.dataset.projectId
+    let previouslySelectedElement = document.querySelector('.selected')
+    previouslySelectedElement.classList.remove('selected')
+    e.target.classList.add('selected')
+    saveAndRenderList()
+}) 
+
 listContainer.addEventListener('click', e=>{
     selectedProjectId = e.target.dataset.projectId
     console.log({selectedProjectId}, projectList)
-    generateProjectDOM(findSelectedProjectInStorage())
+    // generateProjectDOM(findSelectedProjectInStorage())
     saveAndRenderList()
 })
+
 function findSelectedProjectInStorage(){
     let indexOfProjectInArray = projectList.findIndex(project => 
         project.id == selectedProjectId
