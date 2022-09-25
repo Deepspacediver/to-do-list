@@ -1,6 +1,7 @@
 
 let todoArray = []
 let LOCAL_STORAGE_PROJECT_KEY  = 'todo.projects'
+let LOCAL_STORAGE_SELECTED_PROJECT_KEY  = 'todo.selectedProject'
 let projectList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_PROJECT_KEY)) || [];
 class todo{
     constructor(title, description, date){
@@ -34,7 +35,8 @@ class project{
     }
 }
 
-export { todo, projectList, todoArray, project, LOCAL_STORAGE_PROJECT_KEY}
+export { todo, projectList, todoArray, project,
+     LOCAL_STORAGE_PROJECT_KEY, LOCAL_STORAGE_SELECTED_PROJECT_KEY}
 
 
     
