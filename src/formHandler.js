@@ -1,5 +1,6 @@
 import {todoArray, todo, projectList, project } from "./todoLogic"
-import { createTodoDiv, selectedProjectId, saveAndRenderList} from "./DOMHandler"
+import { createTodoDiv, selectedProjectId, saveAndRenderList,
+     findSelectedProjectInStorage} from "./DOMHandler"
 
 const titleInput = document.querySelector('#todo-title')
 const descriptionInput = document.querySelector('#todo-description')
@@ -49,17 +50,16 @@ function closeForm(form){
     form.classList.remove('active')
     overlay.classList.remove('active')
 }
+
 function addNewTodo(array,newTodo){
     array.push(newTodo)
-    let indexOfProjectInArray = projectList.findIndex(project => 
-        project.id == selectedProjectId
-    )
-    console.log(indexOfProjectInArray)
-    let currentProjectInStorage = projectList[indexOfProjectInArray]
-    currentProjectInStorage.todos.push(newTodo)
+    
+    findSelectedProjectInStorage().todos.push(newTodo)
     saveAndRenderList()
     console.log(projectList)
 }
+
+
 function clearForm(button){
     const inputContainers = Array.from(button.closest('div').querySelector('fieldset').children)
     inputContainers.forEach((div) => {

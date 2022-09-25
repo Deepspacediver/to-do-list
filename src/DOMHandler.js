@@ -1,7 +1,7 @@
 import { todoArray, todo, projectList, project,
      LOCAL_STORAGE_PROJECT_KEY, LOCAL_STORAGE_SELECTED_PROJECT_KEY,
     } from "./todoLogic";
-import { createProjectContainerDOM } from "./htmlTemplate";
+import { generateProjectDOM } from "./htmlTemplate";
 
 const bodyContent = document.querySelector('.body-content')
 
@@ -92,9 +92,18 @@ function clearElement(element){
 
 listContainer.addEventListener('click', e=>{
     selectedProjectId = e.target.dataset.projectId
-    console.log({selectedProjectId}, e.target, projectList)
+    console.log({selectedProjectId}, projectList)
+    generateProjectDOM(findSelectedProjectInStorage())
     saveAndRenderList()
 })
+function findSelectedProjectInStorage(){
+    let indexOfProjectInArray = projectList.findIndex(project => 
+        project.id == selectedProjectId
+    )
+    console.log(indexOfProjectInArray)
+    let currentProjectInStorage = projectList[indexOfProjectInArray]
+    return currentProjectInStorage
+}
 
 
 
@@ -106,4 +115,4 @@ listContainer.addEventListener('click', e=>{
 
     }
 } */
-  export {saveAndRenderList, selectedProjectId} 
+  export {saveAndRenderList, selectedProjectId, findSelectedProjectInStorage} 

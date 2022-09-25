@@ -82,16 +82,30 @@ export const createHTMLTemplate = (() => {
     })();
 })();
 
-function createProjectContainerDOM(selectedProjectID){
-    const projectTodoContainer = document.createElement('div')
-    projectTodoContainer.dataset.projectId = `${selectedProjectID}`
+function generateProjectDOM(selectedProject){
+    clearProjectDOM(document.querySelector('.project-container'))
+    /* const projectTodoContainer = document.createElement('div')
+    projectTodoContainer.dataset.projectId = `${selectedProject.id}`
     projectTodoContainer.classList.add('project-container')
 
-    const projectTodoUL = document.createElement('ul')
-    projectTodoUL.dataset.projectId = `${selectedProjectID}`;
-    projectTodoUL.classList.add('todo-list')
-    projectTodoContainer.appendChild(projectTodoUL)
+    
     document.querySelector('.body-content').appendChild(projectTodoContainer)
-}
 
-export {createProjectContainerDOM}
+    selectedProject.todos.forEach(todo => {
+        const todoContainer = document.createElement('ul')
+        todoContainer.classList.add('todo-container')
+        todoContainer.dataset.projectId = `${selectedProject.id}`
+        todoContainer.dataset.originID = `${todo.originID}`
+        todoContainer.innerText ='yoooo'
+        projectTodoContainer.appendChild(todoContainer)
+    }) */
+}
+function clearProjectDOM(container){
+    if(!container || !container.firstChild) return
+    while(container.firstChild) {
+        container.firstChild.remove()
+        console.log('removed')
+    }
+    container.remove()
+}
+export {generateProjectDOM}
