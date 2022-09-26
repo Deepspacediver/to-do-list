@@ -3,14 +3,15 @@ import { todoArray, todo, projectList, project,
     } from "./todoLogic";
 import { generateProjectDOM } from "./htmlTemplate";
 
-const bodyContent = document.querySelector('.body-content')
+// const bodyContent = document.querySelector('.body-content')
+const projectWrapper = document.querySelector('.project-wrapper')
 
 export function createTodoDiv(todoObject){
     
     const todoWrapper = document.createElement('div')
     todoWrapper.dataset.todoId = `${todoObject.originID}`
     todoWrapper.classList.add('todo-wrapper')
-    bodyContent.insertBefore(todoWrapper, bodyContent.firstChild)
+    projectWrapper.insertBefore(todoWrapper, projectWrapper.firstChild)
 
     const todoTitle = document.createElement('div')
     todoTitle.dataset.todoId = `${todoObject.originID}`;

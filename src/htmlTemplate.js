@@ -33,6 +33,10 @@ export const createHTMLTemplate = (() => {
             bodyContent.classList.add('body-content')
             content.appendChild(bodyContent)
 
+            const projectWrapper = document.createElement('div')
+            projectWrapper.classList.add('project-wrapper')
+            bodyContent.appendChild(projectWrapper)
+
             const addTodoButton = document.createElement('button')
             addTodoButton.classList.add('add-todo-button')
             addTodoButton.dataset.formTarget= '.todo-form-container'
@@ -81,7 +85,7 @@ export const createHTMLTemplate = (() => {
     })();
 })();
 
-function generateProjectDOM(selectedProject){
+function generateProjectDOM(projectId){
     clearProjectDOM(document.querySelector('.project-container'))
     /* const projectTodoContainer = document.createElement('div')
     projectTodoContainer.dataset.projectId = `${selectedProject.id}`

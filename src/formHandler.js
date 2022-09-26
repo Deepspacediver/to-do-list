@@ -16,7 +16,6 @@ submitButton.addEventListener('click', (e)=>{
          !dateInput.value) return;
          const newTodo = new todo(selectedProjectId,titleInput.value, descriptionInput.value,
              dateInput.value) 
-             console.log(newTodo) 
          addNewTodo(todoArray, newTodo)
          createTodoDiv(newTodo)  
          clearForm(submitButton)
