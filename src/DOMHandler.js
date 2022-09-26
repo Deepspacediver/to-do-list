@@ -93,19 +93,6 @@ function findSelectedProjectInStorage(){
     return currentProjectInStorage
 }
 
-function generateProjectDOM(project){
-    
-    const projectTodoContainerList = document.createElement('ul')
-    projectTodoContainerList.dataset.projectId = `${project.id}`
-    projectTodoContainerList.classList.add('project-container')
-
-    
-    document.querySelector('.project-wrapper').appendChild(projectTodoContainerList)
-
-    project.todos.forEach(todo => {
-        createTodoDiv(todo)
-    }) 
-}
 function clearAndRender(wrapper, target, projectId){
     clearProjectDOM(wrapper, target)
     renderTodos(projectId)
@@ -131,13 +118,5 @@ function renderTodos(selectedId){
 
 }
 
-/* function addTodoToSelectedProject(target){
-    let selectedProjectID = target.dataset.projectId;
-    console.log(selectedProjectID)
-    for (let i in localStorage) {
-        let projectObject = JSON.parse(localStorage.getItem(i))
-
-    }
-} */
   export {saveAndRenderList, selectedProjectId,
      findSelectedProjectInStorage, renderTodos} 
