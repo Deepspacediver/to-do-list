@@ -1,12 +1,11 @@
 import { todoArray, todo, projectList, project,
      LOCAL_STORAGE_PROJECT_KEY, LOCAL_STORAGE_SELECTED_PROJECT_KEY,
     } from "./todoLogic";
-import { generateProjectDOM } from "./htmlTemplate";
+
 
 // const bodyContent = document.querySelector('.body-content')
-const projectWrapper = document.querySelector('.project-wrapper')
 
-export function createTodoDiv(todoObject){
+function createTodoDiv(todoObject){
     
     const todoWrapper = document.createElement('div')
     todoWrapper.dataset.todoId = `${todoObject.originID}`
@@ -50,7 +49,7 @@ const newProjectInput = document.querySelector('[data-new-project-input]')
 const projectForm = document.querySelector('[data-project-form]')
 let selectedProjectId = localStorage.getItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY)
 const defaultTodoProject = document.querySelector('.default-todo')
-
+const projectWrapper = document.querySelector('.project-wrapper')
 
 projectForm.addEventListener('submit', e=>{
     e.preventDefault()
@@ -67,15 +66,17 @@ function saveAndRenderList(){
     saveList()
     renderList()
 }
+
 function saveList (){
     localStorage.setItem(LOCAL_STORAGE_PROJECT_KEY, JSON.stringify(projectList))
-    if(localStorage.getItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY) === null ||
+    console.log(selectedProjectId)
+    /* if(localStorage.getItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY) === null ||
     localStorage.getItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY) == 0){
         localStorage.setItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY,
              defaultTodoProject.dataset.projectId)
-    }else {
+    }else {  */
         localStorage.setItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY, selectedProjectId)
-    }
+    // }
 }
 function renderList(){
     clearElement(listContainer)
@@ -102,11 +103,13 @@ function clearElement(element){
 defaultTodoProject.addEventListener('click', e=>{
     if(e.target.classList.contains('selected')) return
     selectedProjectId = e.target.dataset.projectId
-    let previouslySelectedElement = document.querySelector('.selected')
-    previouslySelectedElement.classList.remove('selected')
-    e.target.classList.add('selected')
     saveAndRenderList()
 }) 
+
+function removeSelectedClass(){
+    let previouslySelectedElement = document.querySelector('.selected')
+    previouslySelectedElement.classList.remove('selected')
+}
 
 listContainer.addEventListener('click', e=>{
     selectedProjectId = e.target.dataset.projectId
@@ -124,7 +127,32 @@ function findSelectedProjectInStorage(){
     return currentProjectInStorage
 }
 
+function generateProjectDOM(projectId){
+    
+    /* const projectTodoContainer = document.createElement('div')
+    projectTodoContainer.dataset.projectId = `${selectedProject.id}`
+    projectTodoContainer.classList.add('project-container')
 
+    
+    document.querySelector('.body-content').appendChild(projectTodoContainer)
+
+    selectedProject.todos.forEach(todo => {
+        const todoContainer = document.createElement('ul')
+        todoContainer.classList.add('todo-container')
+        todoContainer.dataset.projectId = `${selectedProject.id}`
+        todoContainer.dataset.originID = `${todo.originID}`
+        todoContainer.innerText ='yoooo'
+        projectTodoContainer.appendChild(todoContainer)
+    }) */
+}
+function clearProjectDOM(container, target){
+    if(!container || !container.firstChild || 
+        target.target.dataset.projectId == selectedProjectId) return
+    while(container.firstChild) {
+        container.firstChild.remove()
+        console.log('removed')
+    }
+}
 
 /* function addTodoToSelectedProject(target){
     let selectedProjectID = target.dataset.projectId;
@@ -134,4 +162,5 @@ function findSelectedProjectInStorage(){
 
     }
 } */
-  export {saveAndRenderList, selectedProjectId, findSelectedProjectInStorage} 
+  export {saveAndRenderList, selectedProjectId,
+     findSelectedProjectInStorage,} 

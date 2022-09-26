@@ -1,4 +1,5 @@
 
+
 let todoArray = []
 let LOCAL_STORAGE_PROJECT_KEY  = 'todo.projects'
 let LOCAL_STORAGE_SELECTED_PROJECT_KEY  = 'todo.selectedProjectId'

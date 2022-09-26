@@ -1,8 +1,6 @@
-// import { submitButton } from "./formHandler";
+import { project } from "./todoLogic"
 
-import { project } from "./todoLogic";
-
-export const createHTMLTemplate = (() => {
+const createHTMLTemplate = (() => {
     const body = document.querySelector('body')
 
     const createHeader = (() => {
@@ -85,30 +83,7 @@ export const createHTMLTemplate = (() => {
     })();
 })();
 
-function generateProjectDOM(projectId){
-    clearProjectDOM(document.querySelector('.project-container'))
-    /* const projectTodoContainer = document.createElement('div')
-    projectTodoContainer.dataset.projectId = `${selectedProject.id}`
-    projectTodoContainer.classList.add('project-container')
 
-    
-    document.querySelector('.body-content').appendChild(projectTodoContainer)
 
-    selectedProject.todos.forEach(todo => {
-        const todoContainer = document.createElement('ul')
-        todoContainer.classList.add('todo-container')
-        todoContainer.dataset.projectId = `${selectedProject.id}`
-        todoContainer.dataset.originID = `${todo.originID}`
-        todoContainer.innerText ='yoooo'
-        projectTodoContainer.appendChild(todoContainer)
-    }) */
-}
-function clearProjectDOM(container){
-    if(!container || !container.firstChild) return
-    while(container.firstChild) {
-        container.firstChild.remove()
-        console.log('removed')
-    }
-    container.remove()
-}
-export {generateProjectDOM}
+
+export {}
