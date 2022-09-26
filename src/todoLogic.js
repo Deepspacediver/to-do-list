@@ -1,6 +1,6 @@
 
-
-let todoArray = []
+let LOCAL_STORAGE_DEFAULT_TODOS = 'todo.defaultArray'
+let todoArray = JSON.parse(localStorage.getItem(LOCAL_STORAGE_DEFAULT_TODOS)) || [];
 let LOCAL_STORAGE_PROJECT_KEY  = 'todo.projects'
 let LOCAL_STORAGE_SELECTED_PROJECT_KEY  = 'todo.selectedProjectId'
 let projectList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_PROJECT_KEY)) || [];
@@ -38,7 +38,8 @@ class project{
 }
 
 export { todo, projectList, todoArray, project,
-     LOCAL_STORAGE_PROJECT_KEY, LOCAL_STORAGE_SELECTED_PROJECT_KEY}
+     LOCAL_STORAGE_PROJECT_KEY, LOCAL_STORAGE_SELECTED_PROJECT_KEY,
+     LOCAL_STORAGE_DEFAULT_TODOS}
 
 
     

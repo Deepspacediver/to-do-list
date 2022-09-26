@@ -20,6 +20,7 @@ submitButton.addEventListener('click', (e)=>{
          
          clearElement(projectWrapper)
          addNewTodo(todoArray, newTodo)
+         saveAndRenderList()
          renderTodos(selectedProjectId)
          clearForm(submitButton)
          closeForm(e.target.closest('.todo-form-container'))

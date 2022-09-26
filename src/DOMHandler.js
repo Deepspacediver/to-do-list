@@ -1,5 +1,5 @@
 import { todoArray, todo, projectList, project,
-     LOCAL_STORAGE_PROJECT_KEY, LOCAL_STORAGE_SELECTED_PROJECT_KEY,
+     LOCAL_STORAGE_PROJECT_KEY, LOCAL_STORAGE_SELECTED_PROJECT_KEY, LOCAL_STORAGE_DEFAULT_TODOS,
     } from "./todoLogic";
 
 import { createTodoDiv, projectWrapper} from "./formHandler";
@@ -34,6 +34,7 @@ function saveAndRenderList(){
 
 function saveList (){
     localStorage.setItem(LOCAL_STORAGE_PROJECT_KEY, JSON.stringify(projectList))
+    localStorage.setItem(LOCAL_STORAGE_DEFAULT_TODOS, JSON.stringify(todoArray))
     console.log(selectedProjectId, todoArray)
     /* if(localStorage.getItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY) === null ||
     localStorage.getItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY) == 0){
