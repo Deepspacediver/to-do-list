@@ -3,6 +3,7 @@ import "./htmlTemplate"
 import "./DOMHandler"
 import "./main.css"
 import "./formHandler"
-import { saveAndRenderList } from "./DOMHandler"
+import { renderTodos, saveAndRenderList, selectedProjectId } from "./DOMHandler"
 window.addEventListener('load', saveAndRenderList())
+window.addEventListener('load', renderTodos(selectedProjectId))
 // createInputForTodo()

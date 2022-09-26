@@ -1,6 +1,6 @@
 import {todoArray, todo, projectList, project } from "./todoLogic"
-import { createTodoDiv, selectedProjectId, saveAndRenderList,
-     findSelectedProjectInStorage} from "./DOMHandler"
+import {selectedProjectId, saveAndRenderList,
+     findSelectedProjectInStorage, renderTodos, clearElement} from "./DOMHandler"
 
 const titleInput = document.querySelector('#todo-title')
 const descriptionInput = document.querySelector('#todo-description')
@@ -10,14 +10,17 @@ const submitButton = document.querySelector('.submit-button')
 const openFormButtons = document.querySelectorAll('[data-form-target]')
 const closeFormButtons = document.querySelectorAll('[data-close-button]')
 const overlay = document.getElementById('overlay')
+export const projectWrapper = document.querySelector('.project-wrapper')
 
 submitButton.addEventListener('click', (e)=>{
     if(!titleInput.value || !descriptionInput.value ||
          !dateInput.value) return;
          const newTodo = new todo(selectedProjectId,titleInput.value, descriptionInput.value,
              dateInput.value) 
+         
+         clearElement(projectWrapper)
          addNewTodo(todoArray, newTodo)
-         createTodoDiv(newTodo)  
+         renderTodos(selectedProjectId)
          clearForm(submitButton)
          closeForm(e.target.closest('.todo-form-container'))
     
@@ -67,4 +70,37 @@ function clearForm(button){
         })
     })
 }
-export {titleInput, descriptionInput, dateInput, submitButton}
+
+function createTodoDiv(todoObject){
+    
+    const todoWrapper = document.createElement('div')
+    todoWrapper.dataset.todoId = `${todoObject.originID}`
+    todoWrapper.classList.add('todo-wrapper')
+    projectWrapper.insertBefore(todoWrapper, projectWrapper.firstChild)
+
+    const todoTitle = document.createElement('div')
+    todoTitle.dataset.todoId = `${todoObject.originID}`;
+    todoTitle.classList.add('todo-title')
+    todoTitle.textContent = `${todoObject.title}`
+    todoWrapper.appendChild(todoTitle)
+
+    const todoDescription = document.createElement('div')
+    todoDescription.dataset.todoId = `${todoObject.originID}`;
+    todoDescription.classList.add('todo-descritpion')
+    todoDescription.textContent = `${todoObject.description}`
+    todoWrapper.appendChild(todoDescription)
+
+    const todoDate = document.createElement('div')
+    todoDate.dataset.todoId = `${todoObject.originID}`;
+    todoDate.classList.add('todo-date')
+    todoDate.textContent = `${todoObject.date}`
+    todoWrapper.appendChild(todoDate)
+
+    const removeTodoButton = document.createElement('button')
+    removeTodoButton.dataset.todoId = `${todoObject.originID}`
+    removeTodoButton.classList.add('todo-remove-button')
+    removeTodoButton.textContent = 'Remove me'
+    todoWrapper.appendChild(removeTodoButton)
+    // removeTodoButton.addEventListener('click', todoObject.removeTodo(todoArray))
+}
+export {titleInput, descriptionInput, dateInput, submitButton, createTodoDiv}
