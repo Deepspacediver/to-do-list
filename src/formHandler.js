@@ -19,6 +19,7 @@ submitButton.addEventListener('click', (e)=>{
              dateInput.value) 
          
          addNewTodo(todoArray, newTodo)
+         saveAndRenderList()
          renderTodos(selectedProjectId)
          clearForm(submitButton)
          closeForm(e.target.closest('.todo-form-container'))
@@ -74,7 +75,7 @@ function clearForm(button){
     })
 }
 
-function createTodoDiv(todoObject){
+function createTodoDiv(todoObject,){
     
     const todoWrapper = document.createElement('div')
     todoWrapper.dataset.todoId = `${todoObject.originID}`
@@ -103,8 +104,12 @@ function createTodoDiv(todoObject){
     removeTodoButton.dataset.todoId = `${todoObject.originID}`
     removeTodoButton.classList.add('todo-remove-button')
     removeTodoButton.textContent = 'Remove me'
+    removeTodoButton.addEventListener('click', logMe())
     todoWrapper.appendChild(removeTodoButton)
-    // removeTodoButton.addEventListener('click', todoObject.removeTodo(todoArray))
+}
+
+function logMe(){
+    console.log('this', this)
 }
 export {titleInput, descriptionInput, dateInput, submitButton, createTodoDiv,
      projectWrapper}

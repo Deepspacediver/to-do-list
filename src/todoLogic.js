@@ -16,16 +16,8 @@ class todo{
         return this.originID
     }
 
-    removeTodo(){
+    removeTodo = () =>{
         console.log(this)
-         let id = this.dataset.todoId //button.data-id
-        let indexOfTodoInArray = todoArray.findIndex(object => object.originID == id)
-        todoArray.splice(indexOfTodoInArray, 1)
-        
-        let pageElements = Array.from(document.querySelectorAll(`[data-id="${this.dataset.id}"]`))
-        pageElements.forEach((element) =>{
-            element.remove()
-        })  
     }
 }
 

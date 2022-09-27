@@ -40,6 +40,12 @@ const createHTMLTemplate = (() => {
             addTodoButton.dataset.formTarget= '.todo-form-container'
             addTodoButton.textContent = 'new todo'
             bodyContent.appendChild(addTodoButton)
+
+            const removeProjectButton = document.createElement('button')
+            removeProjectButton.classList.add('remove-project-button')
+            removeProjectButton.dataset.removeProjectButton=''
+            removeProjectButton.textContent ='Remove current project'
+            bodyContent.appendChild(removeProjectButton)
         })();
     })();
 

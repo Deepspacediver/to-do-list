@@ -102,6 +102,7 @@ function clearProjectDOM(container, target){
         container.firstChild.remove()
     }
 } */
+// let removeTodoButtons;
 function renderTodos(selectedId){
     clearElement(projectWrapper)
     let array;
@@ -112,8 +113,24 @@ function renderTodos(selectedId){
     array.forEach(element => {
         createTodoDiv(element)
     })
+    /* removeTodoButtons = document.querySelectorAll('.todo-remove-button')
+    console.log(removeTodoButtons) */
 
 }
+
+const removeProjectButton = document.querySelector('[data-remove-project-button]')
+removeProjectButton.addEventListener('click', ()=>{
+    if(selectedProjectId == 0) return
+    let indexOfProjectInArray = projectList.findIndex(project => 
+        project.id == findSelectedProjectInStorage().id
+    ) 
+    selectedProjectId = 0;
+    projectList.splice(indexOfProjectInArray, 1)
+    saveAndRenderList()
+    renderTodos(selectedProjectId)
+    
+
+})
 
   export {saveAndRenderList, selectedProjectId,
      findSelectedProjectInStorage, renderTodos, clearElement} 
