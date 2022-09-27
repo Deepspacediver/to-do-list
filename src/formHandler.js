@@ -10,7 +10,7 @@ const submitButton = document.querySelector('.submit-button')
 const openFormButtons = document.querySelectorAll('[data-form-target]')
 const closeFormButtons = document.querySelectorAll('[data-close-button]')
 const overlay = document.getElementById('overlay')
-export const projectWrapper = document.querySelector('.project-wrapper')
+const projectWrapper = document.querySelector('.project-wrapper')
 
 submitButton.addEventListener('click', (e)=>{
     if(!titleInput.value || !descriptionInput.value ||
@@ -18,9 +18,7 @@ submitButton.addEventListener('click', (e)=>{
          const newTodo = new todo(selectedProjectId,titleInput.value, descriptionInput.value,
              dateInput.value) 
          
-         clearElement(projectWrapper)
          addNewTodo(todoArray, newTodo)
-         saveAndRenderList()
          renderTodos(selectedProjectId)
          clearForm(submitButton)
          closeForm(e.target.closest('.todo-form-container'))
@@ -40,6 +38,11 @@ closeFormButtons.forEach(button => {
         const form = button.closest('.todo-form-container')
         closeForm(form)
     })
+})
+overlay.addEventListener('click', ()=>{
+    let form = document.querySelector('.todo-form-container.active')
+    clearForm(submitButton)
+    closeForm(form)
 })
 
 function openForm(form){
@@ -61,7 +64,6 @@ function addNewTodo(defaultArray, newTodo){
             console.log(projectList)
         }
 }
-
 
 function clearForm(button){
     const inputContainers = Array.from(button.closest('div').querySelector('fieldset').children)
@@ -104,4 +106,5 @@ function createTodoDiv(todoObject){
     todoWrapper.appendChild(removeTodoButton)
     // removeTodoButton.addEventListener('click', todoObject.removeTodo(todoArray))
 }
-export {titleInput, descriptionInput, dateInput, submitButton, createTodoDiv}
+export {titleInput, descriptionInput, dateInput, submitButton, createTodoDiv,
+     projectWrapper}

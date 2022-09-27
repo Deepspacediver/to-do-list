@@ -4,12 +4,7 @@ import { todoArray, todo, projectList, project,
 
 import { createTodoDiv, projectWrapper} from "./formHandler";
 
-function getFirstChild(){
-    let firstChild = document.querySelector('div.body-content').firstChild
-    return firstChild;
-}
 
- 
 const listContainer = document.querySelector('[data-project-list]')
 const newProjectInput = document.querySelector('[data-new-project-input]')
 const projectForm = document.querySelector('[data-project-form]')
@@ -23,7 +18,11 @@ projectForm.addEventListener('submit', e=>{
     let projectName = newProjectInput.value;
     const newProject = new project(projectName)
     projectList.push(newProject)
+
+    clearElement(projectWrapper)
+    selectedProjectId = newProject.id
     saveAndRenderList()
+
     newProjectInput.value =''
 })
 
@@ -36,13 +35,8 @@ function saveList (){
     localStorage.setItem(LOCAL_STORAGE_PROJECT_KEY, JSON.stringify(projectList))
     localStorage.setItem(LOCAL_STORAGE_DEFAULT_TODOS, JSON.stringify(todoArray))
     console.log(selectedProjectId, todoArray)
-    /* if(localStorage.getItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY) === null ||
-    localStorage.getItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY) == 0){
-        localStorage.setItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY,
-             defaultTodoProject.dataset.projectId)
-    }else {  */
-        localStorage.setItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY, selectedProjectId)
-    // }
+    localStorage.setItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY, selectedProjectId)
+    
 }
 function renderList(){
     clearElement(listContainer)
@@ -58,10 +52,9 @@ function renderList(){
         }
         listContainer.appendChild(projectElement)
     })
-    clearElement(document.querySelector('.project-wrapper'))
 }
 
-export function clearElement(element){
+function clearElement(element){
     while(element.firstChild){
         element.firstChild.remove()
     }
@@ -70,8 +63,9 @@ export function clearElement(element){
 defaultTodoProject.addEventListener('click', e=>{
     if(e.target.classList.contains('selected')) return
     selectedProjectId = e.target.dataset.projectId
+    
     saveAndRenderList()
-    clearAndRender(projectWrapper, e, selectedProjectId)
+    renderTodos(selectedProjectId)
 }) 
 
 
@@ -79,35 +73,37 @@ listContainer.addEventListener('click', e=>{
     console.log({todoArray})
     if(selectedProjectId == e.target.dataset.projectId) return
     selectedProjectId = e.target.dataset.projectId
+    
     console.log({selectedProjectId}, projectList)
-    // generateProjectDOM(findSelectedProjectInStorage())
+    
     saveAndRenderList()
-    clearAndRender(projectWrapper, e, selectedProjectId)
+    renderTodos(selectedProjectId)
+    // clearAndRenderTodos(projectWrapper, e, selectedProjectId)
 })
 
 function findSelectedProjectInStorage(){
     let indexOfProjectInArray = projectList.findIndex(project => 
         project.id == selectedProjectId
-    )
-    console.log(indexOfProjectInArray)
+    ) 
+    console.log({indexOfProjectInArray})
     let currentProjectInStorage = projectList[indexOfProjectInArray]
     return currentProjectInStorage
 }
 
-function clearAndRender(wrapper, target, projectId){
+/* function clearAndRenderTodos(wrapper, target, projectId){
     clearProjectDOM(wrapper, target)
     renderTodos(projectId)
-
 }
+
 function clearProjectDOM(container, target){
     if(!container || !container.firstChild || 
         target.target.dataset.projectId == selectedProjectId) return
     while(container.firstChild) {
         container.firstChild.remove()
-        console.log('removed')
     }
-}
+} */
 function renderTodos(selectedId){
+    clearElement(projectWrapper)
     let array;
     if(selectedId == 0) {
         array = todoArray
@@ -120,4 +116,4 @@ function renderTodos(selectedId){
 }
 
   export {saveAndRenderList, selectedProjectId,
-     findSelectedProjectInStorage, renderTodos} 
+     findSelectedProjectInStorage, renderTodos, clearElement} 
