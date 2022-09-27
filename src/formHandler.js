@@ -75,9 +75,11 @@ function clearForm(button){
     })
 }
 
+
 function createTodoDiv(todoObject,){
     
     const todoWrapper = document.createElement('div')
+    todoWrapper.dataset.projectId = todoObject.projectId
     todoWrapper.dataset.todoId = `${todoObject.originID}`
     todoWrapper.classList.add('todo-wrapper')
     projectWrapper.insertBefore(todoWrapper, projectWrapper.firstChild)
@@ -102,14 +104,38 @@ function createTodoDiv(todoObject,){
 
     const removeTodoButton = document.createElement('button')
     removeTodoButton.dataset.todoId = `${todoObject.originID}`
+    removeTodoButton.dataset.projectId = todoObject.projectId
     removeTodoButton.classList.add('todo-remove-button')
     removeTodoButton.textContent = 'Remove me'
-    removeTodoButton.addEventListener('click', logMe())
+    removeTodoButton.addEventListener('click', function(e){
+        if(e.target.dataset.projectId == `${selectedProjectId}`){//event delegation
+            removeTodo(e.target)
+        }
+    }) 
     todoWrapper.appendChild(removeTodoButton)
 }
 
-function logMe(){
-    console.log('this', this)
+function removeTodo(target){
+    let idOfProject = target.dataset.projectId
+    let idOfTodo = target.dataset.todoId
+    let indexOfTodoInArray;
+    if(selectedProjectId == 0) {
+        indexOfTodoInArray = todoArray.findIndex(todo => 
+            todo.originID == idOfTodo);
+        todoArray.splice(indexOfTodoInArray, 1)
+        console.log({indexOfTodoInArray})
+    } else {
+        indexOfTodoInArray = projectList.findIndex(project => 
+            project.todos.originID == idOfTodo);
+        findSelectedProjectInStorage().todos.splice(indexOfTodoInArray, 1)
+    }
+
+    saveAndRenderList()
+    renderTodos(selectedProjectId)
+ 
+    console.log({idOfProject, idOfTodo})
 }
+
+
 export {titleInput, descriptionInput, dateInput, submitButton, createTodoDiv,
      projectWrapper}

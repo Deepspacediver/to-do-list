@@ -16,7 +16,7 @@ class todo{
         return this.originID
     }
 
-    removeTodo = () =>{
+    removeTodo () {
         console.log(this)
     }
 }

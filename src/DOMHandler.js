@@ -109,7 +109,6 @@ function renderTodos(selectedId){
     if(selectedId == 0) {
         array = todoArray
     } else array = findSelectedProjectInStorage().todos
-
     array.forEach(element => {
         createTodoDiv(element)
     })
