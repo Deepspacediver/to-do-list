@@ -96,8 +96,13 @@ body{
     pointer-events: all;
     opacity: 1;
 }
-
+.edit-todo-form-container{
+    
+}
 .selected{
     font-weight: bold;
     font-size: 1.2rem;
+}
+.hidden{
+    display: none;
 }

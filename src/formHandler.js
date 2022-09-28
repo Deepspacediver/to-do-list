@@ -1,6 +1,6 @@
-import {todoArray, todo, projectList, project } from "./todoLogic"
+import {todoArray, todo, projectList, project, LOCAL_STORAGE_SELECTED_TODO_KEY } from "./todoLogic"
 import {selectedProjectId, saveAndRenderList,
-     findSelectedProjectInStorage, renderTodos, clearElement} from "./DOMHandler"
+     findSelectedProjectInStorage, renderTodos, clearElement, selectedTodoId} from "./DOMHandler"
 
 const titleInput = document.querySelector('#todo-title')
 const descriptionInput = document.querySelector('#todo-description')
@@ -10,7 +10,9 @@ const submitButton = document.querySelector('.submit-button')
 const openFormButtons = document.querySelectorAll('[data-form-target]')
 const closeFormButtons = document.querySelectorAll('[data-close-button]')
 const overlay = document.getElementById('overlay')
+const body = document.querySelector('.body-content')
 const projectWrapper = document.querySelector('.project-wrapper')
+const editTodoForm = document.querySelector('.edit-todo-form-container')
 
 submitButton.addEventListener('click', (e)=>{
     if(!titleInput.value || !descriptionInput.value ||
@@ -29,7 +31,7 @@ submitButton.addEventListener('click', (e)=>{
 
 openFormButtons.forEach(button => {
     button.addEventListener('click', ()=>{
-        const form = document.querySelector(button.dataset.formTarget)
+        const form = document.querySelector(button.dataset.formTarget)//opens form with specific class
         openForm(form)
     })
 })
@@ -102,6 +104,32 @@ function createTodoDiv(todoObject,){
     todoDate.textContent = `${todoObject.date}`
     todoWrapper.appendChild(todoDate)
 
+    const editTodoButton = document.createElement('button')
+    editTodoButton.dataset.todoId = `${todoObject.originID}`
+    editTodoButton.dataset.projectId = todoObject.projectId
+    editTodoButton.dataset.formTarget = '.edit-todo-form-container'
+    editTodoButton.classList.add('todo-edit-button')
+    editTodoButton.textContent = 'Edit me'
+    editTodoButton.addEventListener('click', function(e){
+        if(e.target.dataset.projectId == selectedProjectId){
+            console.log('ayo', e.target.dataset.projectId)
+            /* let idOfSelectedTodo = getIdOfSelectedTodo(e.target)
+            console.log(idOfSelectedTodo) */
+            setIdOfSelectedTodo(e.target)
+            let selectedTodoId = localStorage.getItem(LOCAL_STORAGE_SELECTED_TODO_KEY)
+            console.log({selectedTodoId})
+            /* let selectedTodoId = e.target.dataset.todoId
+            let selectedTodoWrapper = document.querySelector(`div[data-todo-id="${selectedTodoId}"]`)
+            projectWrapper.insertBefore(editTodoForm, selectedTodoWrapper)
+            editTodoForm.classList.remove('hidden')
+            selectedTodoWrapper.classList.add('hidden')
+            console.log({selectedTodoId, selectedProjectId}) */
+
+
+        }
+    })
+    todoWrapper.appendChild(editTodoButton)
+
     const removeTodoButton = document.createElement('button')
     removeTodoButton.dataset.todoId = `${todoObject.originID}`
     removeTodoButton.dataset.projectId = todoObject.projectId
@@ -114,7 +142,17 @@ function createTodoDiv(todoObject,){
     }) 
     todoWrapper.appendChild(removeTodoButton)
 }
+function setIdOfSelectedTodo(target){
+    localStorage.setItem(LOCAL_STORAGE_SELECTED_TODO_KEY,
+        target.dataset.todoId)
+    
+}
+function insertEditForm(){
 
+}
+function hideEditedTodo(){ //hides todo that is currently edited from DOM
+
+}
 function removeTodo(target){
     let idOfProject = target.dataset.projectId
     let idOfTodo = target.dataset.todoId

@@ -1,6 +1,6 @@
 import { todoArray, todo, projectList, project,
      LOCAL_STORAGE_PROJECT_KEY, LOCAL_STORAGE_SELECTED_PROJECT_KEY, LOCAL_STORAGE_DEFAULT_TODOS,
-    } from "./todoLogic";
+     LOCAL_STORAGE_SELECTED_TODO_KEY} from "./todoLogic";
 
 import { createTodoDiv, projectWrapper} from "./formHandler";
 
@@ -9,6 +9,7 @@ const listContainer = document.querySelector('[data-project-list]')
 const newProjectInput = document.querySelector('[data-new-project-input]')
 const projectForm = document.querySelector('[data-project-form]')
 let selectedProjectId = localStorage.getItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY) || 0;
+let selectedTodoId;
 const defaultTodoProject = document.querySelector('.default-todo')
 
 projectForm.addEventListener('submit', e=>{
@@ -131,5 +132,8 @@ removeProjectButton.addEventListener('click', ()=>{
 
 })
 
+
+// const todoEditButton =
+
   export {saveAndRenderList, selectedProjectId,
-     findSelectedProjectInStorage, renderTodos, clearElement} 
+     findSelectedProjectInStorage, renderTodos, clearElement, selectedTodoId} 

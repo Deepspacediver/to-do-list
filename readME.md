@@ -24,3 +24,19 @@ userSelectsPProject
     function searches for specific project inside projectList
     function generates container for the project and li elements
          from project.todos array  
+
+
+change every div of todo into input
+
+when edit button is clicked the form with input is active and replaces
+    todo DOM 
+each input has submit eventlistener that changes todoObject values and reRendersTodos
+
+
+
+
+
+
+
+insert editForm
+Hide selectedTodo DOM elements
