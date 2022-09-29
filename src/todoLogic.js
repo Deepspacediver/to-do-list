@@ -1,4 +1,6 @@
 
+
+
 let LOCAL_STORAGE_DEFAULT_TODOS = 'todo.defaultArray'
 let todoArray = JSON.parse(localStorage.getItem(LOCAL_STORAGE_DEFAULT_TODOS)) || [];
 let LOCAL_STORAGE_PROJECT_KEY  = 'todo.projects'

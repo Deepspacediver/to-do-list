@@ -1,6 +1,7 @@
 import {todoArray, todo, projectList, project, LOCAL_STORAGE_SELECTED_TODO_KEY } from "./todoLogic"
 import {selectedProjectId, saveAndRenderList,
      findSelectedProjectInStorage, renderTodos, clearElement, findTodoInArray} from "./DOMHandler"
+import format from "date-fns/format"
 
 const titleInput = document.querySelector('#todo-title')
 const descriptionInput = document.querySelector('#todo-description')
@@ -103,7 +104,7 @@ function createTodoDiv(todoObject,){
     const todoDate = document.createElement('div')
     todoDate.dataset.todoId = `${todoObject.originID}`;
     todoDate.classList.add('todo-date')
-    todoDate.textContent = `${todoObject.date}`
+    todoDate.textContent = format(new Date(todoObject.date), 'dd-MMMM-yyyy').replace(/-/g, " ").toUpperCase() //replaces hyphens with spaces
     todoWrapper.appendChild(todoDate)
 
     const editTodoButton = document.createElement('button')
