@@ -9,7 +9,7 @@ const listContainer = document.querySelector('[data-project-list]')
 const newProjectInput = document.querySelector('[data-new-project-input]')
 const projectForm = document.querySelector('[data-project-form]')
 let selectedProjectId = localStorage.getItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY) || 0;
-let selectedTodoId;
+
 const defaultTodoProject = document.querySelector('.default-todo')
 
 projectForm.addEventListener('submit', e=>{
@@ -83,12 +83,24 @@ listContainer.addEventListener('click', e=>{
 })
 
 function findSelectedProjectInStorage(){
-    let indexOfProjectInArray = projectList.findIndex(project => 
-        project.id == selectedProjectId
-    ) 
-    console.log({indexOfProjectInArray})
-    let currentProjectInStorage = projectList[indexOfProjectInArray]
+    let currentProjectInStorage = projectList.find(project =>
+        project.id == selectedProjectId)
+    console.log({currentProjectInStorage})
     return currentProjectInStorage
+}
+
+function findTodoInArray(projectId, todoId){
+    let todoInArray;
+    if(projectId == 0){
+        todoInArray = todoArray.find(todo => 
+            todo.originID == todoId)
+    } else {
+
+        todoInArray = findSelectedProjectInStorage().todos.find(todo =>
+            todo.originID == todoId)
+    }
+    console.log({todoInArray})
+    return todoInArray;
 }
 
 /* function clearAndRenderTodos(wrapper, target, projectId){
@@ -136,4 +148,4 @@ removeProjectButton.addEventListener('click', ()=>{
 // const todoEditButton =
 
   export {saveAndRenderList, selectedProjectId,
-     findSelectedProjectInStorage, renderTodos, clearElement, selectedTodoId} 
+     findSelectedProjectInStorage, renderTodos, clearElement, findTodoInArray} 
