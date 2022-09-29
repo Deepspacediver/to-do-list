@@ -1,6 +1,6 @@
 import {todoArray, todo, projectList, project, LOCAL_STORAGE_SELECTED_TODO_KEY } from "./todoLogic"
 import {selectedProjectId, saveAndRenderList,
-     findSelectedProjectInStorage, renderTodos, clearElement, selectedTodoId} from "./DOMHandler"
+     findSelectedProjectInStorage, renderTodos, clearElement, findTodoInArray} from "./DOMHandler"
 
 const titleInput = document.querySelector('#todo-title')
 const descriptionInput = document.querySelector('#todo-description')
@@ -76,7 +76,7 @@ function clearForm(button){
         })
     })
 }
-
+let selectedTodoId;
 
 function createTodoDiv(todoObject,){
     
@@ -112,20 +112,13 @@ function createTodoDiv(todoObject,){
     editTodoButton.textContent = 'Edit me'
     editTodoButton.addEventListener('click', function(e){
         if(e.target.dataset.projectId == selectedProjectId){
-            console.log('ayo', e.target.dataset.projectId)
-            /* let idOfSelectedTodo = getIdOfSelectedTodo(e.target)
-            console.log(idOfSelectedTodo) */
+            // console.log('ayo', e.target.dataset.projectId)
+            
             setIdOfSelectedTodo(e.target)
-            let selectedTodoId = localStorage.getItem(LOCAL_STORAGE_SELECTED_TODO_KEY)
-            console.log({selectedTodoId})
-            /* let selectedTodoId = e.target.dataset.todoId
+            selectedTodoId = localStorage.getItem(LOCAL_STORAGE_SELECTED_TODO_KEY)
             let selectedTodoWrapper = document.querySelector(`div[data-todo-id="${selectedTodoId}"]`)
-            projectWrapper.insertBefore(editTodoForm, selectedTodoWrapper)
-            editTodoForm.classList.remove('hidden')
-            selectedTodoWrapper.classList.add('hidden')
-            console.log({selectedTodoId, selectedProjectId}) */
-
-
+            populateEditForm()
+            insertEditForm(selectedTodoWrapper)
         }
     })
     todoWrapper.appendChild(editTodoButton)
@@ -142,17 +135,7 @@ function createTodoDiv(todoObject,){
     }) 
     todoWrapper.appendChild(removeTodoButton)
 }
-function setIdOfSelectedTodo(target){
-    localStorage.setItem(LOCAL_STORAGE_SELECTED_TODO_KEY,
-        target.dataset.todoId)
-    
-}
-function insertEditForm(){
 
-}
-function hideEditedTodo(){ //hides todo that is currently edited from DOM
-
-}
 function removeTodo(target){
     let idOfProject = target.dataset.projectId
     let idOfTodo = target.dataset.todoId
@@ -174,6 +157,64 @@ function removeTodo(target){
     console.log({idOfProject, idOfTodo})
 }
 
+function setIdOfSelectedTodo(target){
+    localStorage.setItem(LOCAL_STORAGE_SELECTED_TODO_KEY,
+        target.dataset.todoId)
+    
+}
+function populateEditForm(){
+    let todo = findTodoInArray(selectedProjectId, selectedTodoId)
+    editTodoTitleInput.value = todo.title
+    editTodoDescriptionInput.value = todo.description
+    editTodoDateInput.value = todo.date
+}
+function insertEditForm(replacedToDoWrapper){
+    projectWrapper.insertBefore(editTodoForm, replacedToDoWrapper)
+    editTodoForm.classList.remove('hidden')
+    replacedToDoWrapper.classList.add('hidden')
+}
+
+const editTodoTitleInput = document.querySelector('input#todo-new-title')
+const editTodoDescriptionInput = document.querySelector('input#todo-new-description')
+const editTodoDateInput = document.querySelector('input#todo-new-date')
+const submitEditButton = document.querySelector('button.submit-edit-button')
+const cancelEditFormButton = document.querySelector('button.cancel')
+
+cancelEditFormButton.addEventListener('click', e=>{
+    clearEditForm()
+    saveAndRenderList()
+    renderTodos(selectedProjectId)
+})
+
+submitEditButton.addEventListener('click', e=>{
+    submitEditForm(editTodoTitleInput.value, editTodoDescriptionInput.value,
+        editTodoDateInput.value)
+    clearEditForm()
+    saveAndRenderList()
+    renderTodos(selectedProjectId)
+
+})
+function submitEditForm(newTitle, newDescription, newDate,){ 
+    let todo = findTodoInArray(selectedProjectId, selectedTodoId)
+
+    if(newTitle === '' || newTitle === todo.title) todo.title = todo.title
+    else todo.title = newTitle;
+
+    if(newDescription === '' || newDescription === todo.description) todo.description = todo.description;
+    else todo.description = newDescription;
+
+    
+    if(newDate === '' || newDate === todo.date) todo.date = todo.date
+    else if(!newDate) return;
+    else todo.date = newDate;
+}
+
+function clearEditForm(){
+    editTodoTitleInput.value = ''
+    editTodoDescriptionInput.value = ''
+    editTodoDateInput.value = ''
+}
+
 
 export {titleInput, descriptionInput, dateInput, submitButton, createTodoDiv,
-     projectWrapper}
+     projectWrapper,}
