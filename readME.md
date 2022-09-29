@@ -28,7 +28,7 @@ userSelectsPProject
 
 change every div of todo into input
 
-when edit button is clicked the form with input is active and replaces
+when edit button is clicked the form with inputs is active and replaces
     todo DOM 
 each input has submit eventlistener that changes todoObject values and reRendersTodos
 
@@ -40,3 +40,4 @@ each input has submit eventlistener that changes todoObject values and reRenders
 
 insert editForm
 Hide selectedTodo DOM elements
+
