@@ -17,14 +17,15 @@ const editTodoForm = document.querySelector('.edit-todo-form-container')
 submitButton.addEventListener('click', (e)=>{
     if(!titleInput.value || !descriptionInput.value ||
          !dateInput.value) return;
-         const newTodo = new todo(selectedProjectId,titleInput.value, descriptionInput.value,
+         
+    const newTodo = new todo(selectedProjectId,titleInput.value, descriptionInput.value,
              dateInput.value) 
          
-         addNewTodo(todoArray, newTodo)
-         saveAndRenderList()
-         renderTodos(selectedProjectId)
-         clearForm(submitButton)
-         closeForm(e.target.closest('.todo-form-container'))
+    addNewTodo(todoArray, newTodo)
+    saveAndRenderList()
+    renderTodos(selectedProjectId)
+    clearForm(submitButton)
+    closeForm(e.target.closest('.todo-form-container'))
     
 })
 
@@ -76,6 +77,7 @@ function clearForm(button){
         })
     })
 }
+
 let selectedTodoId;
 
 function createTodoDiv(todoObject,){
@@ -140,6 +142,7 @@ function removeTodo(target){
     let idOfProject = target.dataset.projectId
     let idOfTodo = target.dataset.todoId
     let indexOfTodoInArray;
+    
     if(selectedProjectId == 0) {
         indexOfTodoInArray = todoArray.findIndex(todo => 
             todo.originID == idOfTodo);
@@ -153,8 +156,6 @@ function removeTodo(target){
 
     saveAndRenderList()
     renderTodos(selectedProjectId)
- 
-    console.log({idOfProject, idOfTodo})
 }
 
 function setIdOfSelectedTodo(target){
@@ -173,6 +174,8 @@ function insertEditForm(replacedToDoWrapper){
     editTodoForm.classList.remove('hidden')
     replacedToDoWrapper.classList.add('hidden')
 }
+
+//Form that edits selected todo
 
 const editTodoTitleInput = document.querySelector('input#todo-new-title')
 const editTodoDescriptionInput = document.querySelector('input#todo-new-description')

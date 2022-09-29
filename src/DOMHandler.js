@@ -8,9 +8,9 @@ import { createTodoDiv, projectWrapper} from "./formHandler";
 const listContainer = document.querySelector('[data-project-list]')
 const newProjectInput = document.querySelector('[data-new-project-input]')
 const projectForm = document.querySelector('[data-project-form]')
+const defaultTodoProject = document.querySelector('.default-todo')
 let selectedProjectId = localStorage.getItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY) || 0;
 
-const defaultTodoProject = document.querySelector('.default-todo')
 
 projectForm.addEventListener('submit', e=>{
     e.preventDefault()
@@ -42,6 +42,8 @@ function saveList (){
 function renderList(){
     clearElement(listContainer)
     if(selectedProjectId == 0) defaultTodoProject.classList.add('selected')
+    toggleRemoveProjectButton() //Removes button if the current project is the default one
+    
     projectList.forEach(project =>{
         const projectElement = document.createElement('li')
         projectElement.classList.add('project-title')
@@ -131,6 +133,7 @@ function renderTodos(selectedId){
 }
 
 const removeProjectButton = document.querySelector('[data-remove-project-button]')
+
 removeProjectButton.addEventListener('click', ()=>{
     if(selectedProjectId == 0) return
     let indexOfProjectInArray = projectList.findIndex(project => 
@@ -143,7 +146,11 @@ removeProjectButton.addEventListener('click', ()=>{
     
 
 })
-
+function toggleRemoveProjectButton(){
+    const removeProjectButton = document.querySelector('.remove-project-button')
+    if(selectedProjectId == 0) removeProjectButton.classList.add('hidden')
+    else removeProjectButton.classList.remove('hidden')
+}
 
 // const todoEditButton =
 
