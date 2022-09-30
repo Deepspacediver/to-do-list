@@ -81,7 +81,6 @@ listContainer.addEventListener('click', e=>{
     
     saveAndRenderList()
     renderTodos(selectedProjectId)
-    // clearAndRenderTodos(projectWrapper, e, selectedProjectId)
 })
 
 function findSelectedProjectInStorage(){
@@ -105,19 +104,7 @@ function findTodoInArray(projectId, todoId){
     return todoInArray;
 }
 
-/* function clearAndRenderTodos(wrapper, target, projectId){
-    clearProjectDOM(wrapper, target)
-    renderTodos(projectId)
-}
 
-function clearProjectDOM(container, target){
-    if(!container || !container.firstChild || 
-        target.target.dataset.projectId == selectedProjectId) return
-    while(container.firstChild) {
-        container.firstChild.remove()
-    }
-} */
-// let removeTodoButtons;
 function renderTodos(selectedId){
     clearElement(projectWrapper)
     let array;
@@ -127,11 +114,9 @@ function renderTodos(selectedId){
     array.forEach(element => {
         createTodoDiv(element)
     })
-    /* removeTodoButtons = document.querySelectorAll('.todo-remove-button')
-    console.log(removeTodoButtons) */
-
 }
 
+//Remove project handlers
 const removeProjectButton = document.querySelector('[data-remove-project-button]')
 
 removeProjectButton.addEventListener('click', ()=>{
@@ -150,6 +135,7 @@ function toggleRemoveProjectButton(){
     const removeProjectButton = document.querySelector('.remove-project-button')
     if(selectedProjectId == 0) removeProjectButton.classList.add('hidden')
     else removeProjectButton.classList.remove('hidden')
+    
 }
 
 // const todoEditButton =

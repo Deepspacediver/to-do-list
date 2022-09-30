@@ -108,18 +108,17 @@ function createTodoDiv(todoObject,){
     todoWrapper.appendChild(todoDate)
 
     const editTodoButton = document.createElement('button')
-    editTodoButton.dataset.todoId = `${todoObject.originID}`
+    editTodoButton.dataset.todoId = todoObject.originID
     editTodoButton.dataset.projectId = todoObject.projectId
     editTodoButton.dataset.formTarget = '.edit-todo-form-container'
     editTodoButton.classList.add('todo-edit-button')
     editTodoButton.textContent = 'Edit me'
     editTodoButton.addEventListener('click', function(e){
         if(e.target.dataset.projectId == selectedProjectId){
-            // console.log('ayo', e.target.dataset.projectId)
-            
             setIdOfSelectedTodo(e.target)
             selectedTodoId = localStorage.getItem(LOCAL_STORAGE_SELECTED_TODO_KEY)
             let selectedTodoWrapper = document.querySelector(`div[data-todo-id="${selectedTodoId}"]`)
+            
             populateEditForm()
             insertEditForm(selectedTodoWrapper)
         }

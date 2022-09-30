@@ -1,6 +1,3 @@
-
-
-
 let LOCAL_STORAGE_DEFAULT_TODOS = 'todo.defaultArray'
 let todoArray = JSON.parse(localStorage.getItem(LOCAL_STORAGE_DEFAULT_TODOS)) || [];
 let LOCAL_STORAGE_PROJECT_KEY  = 'todo.projects'
@@ -38,8 +35,3 @@ export { todo, projectList, todoArray, project,
 
 
     
-/* export function createTodo(titleInput, descriptionInput, dateInput){
-     const newTodo = new todo(titleInput, descriptionInput, dateInput)
-     return newTodo;
- 
-}*/
