@@ -1,4 +1,3 @@
-import { project } from "./todoLogic"
 
 const createHTMLTemplate = (() => {
     const body = document.querySelector('body')
