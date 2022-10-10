@@ -14,7 +14,7 @@ const newProjectInput = document.querySelector("[data-new-project-input]");
 const projectForm = document.querySelector("[data-project-form]");
 const defaultTodoProject = document.querySelector(".default-todo");
 let selectedProjectId =
-  localStorage.getItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY) || 0;
+  JSON.parse(localStorage.getItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY)) || 0;
 
 projectForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -40,7 +40,7 @@ function saveList() {
   localStorage.setItem(LOCAL_STORAGE_PROJECT_KEY, JSON.stringify(projectList));
   localStorage.setItem(LOCAL_STORAGE_DEFAULT_TODOS, JSON.stringify(todoArray));
   console.log(selectedProjectId, todoArray);
-  localStorage.setItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY, selectedProjectId);
+  localStorage.setItem(LOCAL_STORAGE_SELECTED_PROJECT_KEY, JSON.stringify(selectedProjectId));
 }
 function renderList() {
   clearElement(listContainer);
